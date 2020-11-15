@@ -57,12 +57,21 @@ public class MainMenuController {
         createNewRow();
     }
 
-
+    
+    /**
+     * Method that is responsible for executing the event once the "Nueva Fila" button is pressed, belonging to the user interface, 
+     * which adds a new production to the grammar.
+     */
     @FXML
     void addNewRowClicked() {
         createNewRow();
     }
-
+    
+    
+    /**
+     * Method that is responsible for executing the event once the "Cadena" button, belonging to the user interface, is pressed, 
+     * which adds a new string to verify if it is produced by the grammar.
+     */
     @FXML
     void addNewString() {
         TextInputDialog tid = new TextInputDialog();
@@ -80,7 +89,12 @@ public class MainMenuController {
 
         }
     }
-
+    
+    
+    /**
+     * Method that is responsible for executing the event once the "Limpiar" button is pressed, belonging to the user interface, 
+     * which cleans the fields where the user types to add a new grammar and a new string.
+     */
     @FXML
     void cleanFieldsClicked() {
         GrammarPanel_VBox.getChildren().clear();
@@ -92,7 +106,12 @@ public class MainMenuController {
         createNewRow();
         CYK_Tab.setDisable(true);
     }
-
+    
+    
+    /**
+     * Method that is responsible for executing the event once the "Ejecutar CKY" button is pressed, belonging to the user 
+     * interface, which is responsible for executing the CYK algorithm with the grammar and string entered by the user.
+     */
     @FXML
     void runCYKClicked() {
     	try {
@@ -108,6 +127,7 @@ public class MainMenuController {
             
             generateColumns();
             printMatrix();
+            chowMessage();
             
         	CYK_Tab.setDisable(false);
             tabPane.getSelectionModel().select(CYK_Tab);
@@ -119,7 +139,11 @@ public class MainMenuController {
 		}
     	
     }
-
+    
+    
+    /**
+     * Method that is in charge of creating the text fields to be able to type the different productions of the grammar.
+     */
     private void createNewRow(){
 
         HBox hBox = new HBox();
@@ -165,7 +189,14 @@ public class MainMenuController {
             }
         });
     }
-  
+    
+    
+    /**
+     * Method that is responsible for converting the values entered in the text fields by the user (the productions), 
+     * to a matrix which will be processed by the methods of the model, to determine if it produces the entered string.
+     * 
+     * @return An array that will be processed by the methods of the model, to determine if it produces the string entered by the user
+     */
     private String[][] convertGrammarToMatrix() {
     	String[][] grammar = new String[GrammarPanel_VBox.getChildren().size()][2];
     	
@@ -181,6 +212,10 @@ public class MainMenuController {
     	return grammar;
     }
     
+    
+    /**
+     * Method that is responsible for displaying the final table resulting from executing the CYK algorithm.
+     */
     private void printMatrix() {
     	GridPane gridPane = new GridPane();
     	String[][] matrixResult = this.CYK.getMatrixResult();
@@ -216,6 +251,10 @@ public class MainMenuController {
     	CYKPanel_VBox.getChildren().add(gridPane);
     }
     
+    
+    /**
+     * Method that is responsible for creating the J indices in the table resulting from executing the CYK algorithm.
+     */
     private void generateColumns() {
     	HBox box = new HBox();
     	box.setSpacing(3d);
@@ -238,12 +277,46 @@ public class MainMenuController {
 		}
     }
     
+    
+    /**
+     * Method that is responsible for creating and displaying on the screen, the message confirming whether or not the string 
+     * was produced by the grammar.
+     */
+    private void chowMessage() {
+    	
+    	JFXTextField textField = new JFXTextField();
+    	CYKPanel_VBox.getChildren().add(textField);
+    	
+    	textField.setAlignment(Pos.CENTER);
+    	textField.setEditable(false);
+    	textField.setPrefSize(400d, 30d);
+    	textField.setBackground(new Background(new BackgroundFill(Color.valueOf("#c6f6f5"), CornerRadii.EMPTY, Insets.EMPTY)));
+    	textField.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
+    	
+    	
+    	if(this.CYK.containsString()) {
+    		textField.setText("La cadena ingresada es generada por la GIC");
+    	}else {
+    		textField.setText("La cadena ingresada no es generada por la GIC");
+    	}
+    }
+    
+    
+    /**
+     * Method that is in charge of verifying if the fields created for the digitization of the grammar productions are not empty.
+     * @throws TextStringNotEnteredException
+     */
     private void checkTextString() throws TextStringNotEnteredException{
     	if(textString_TxtField.getText().isEmpty()) {
     		throw new TextStringNotEnteredException();
     	}
     }
     
+    
+    /**
+     * Method that is in charge of verifying if the string was entered in order to execute the CYK algorithm
+     * @throws GrammarNotFoundException
+     */
     private void checkGrammar() throws GrammarNotFoundException{
     	
     	for (int i = 0; i < GrammarPanel_VBox.getChildren().size(); i++) {

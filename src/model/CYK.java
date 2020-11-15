@@ -71,10 +71,6 @@ public class CYK {
 				}
 				//Values to generate
 				matrixResult[i-1][j-1] = whoGenerate(nTuplas);
-				
-				
-				
-				
 			}
 		}
 		
