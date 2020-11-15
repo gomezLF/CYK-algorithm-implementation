@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTabPane?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MainMenuController">
+   <top>
+      <Pane prefHeight="50.0" prefWidth="700.0" style="-fx-background-color: #FFFFFF;" BorderPane.alignment="CENTER">
+         <children>
+            <Label layoutX="171.0" layoutY="12.0" style="-fx-background-color: #00BCD4; -fx-background-radius: 10;" text="  Gramáticas Independientes de Contexto  " textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+   </top>
+   <center>
+      <JFXTabPane fx:id="tabPane" accessibleRole="PARENT" BorderPane.alignment="CENTER">
+         <tabs>
+            <Tab fx:id="editor_Tab" text="Editor">
+               <content>
+                  <ScrollPane prefHeight="413.0" prefWidth="700.0">
+                     <content>
+                        <VBox alignment="CENTER" fillWidth="false" prefWidth="685.0" spacing="20.0" style="-fx-background-color: #EEEEEE;">
+                           <children>
+                              <JFXTextField fx:id="textString_TxtField" alignment="CENTER" editable="false" focusColor="#c6f6f5" prefHeight="25.0" prefWidth="400.0" style="-fx-background-color: #C6F6F5; -fx-border-color: black;" unFocusColor="#c6f6f5">
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font>
+                              </JFXTextField>
+                              <VBox fx:id="GrammarPanel_VBox" spacing="3.0" style="-fx-background-color: #EEEEEE;">
+                                 <padding>
+                                    <Insets top="5.0" />
+                                 </padding>
+                              </VBox>
+                           </children>
+                           <padding>
+                              <Insets top="5.0" />
+                           </padding>
+                        </VBox>
+                     </content>
+                  </ScrollPane>
+               </content>
+            </Tab>
+            <Tab fx:id="CYK_Tab" disable="true" text="CYK Analizador">
+               <content>
+                  <ScrollPane prefHeight="200.0" prefWidth="200.0">
+                     <content>
+                        <VBox fx:id="CYKPanel_VBox" alignment="CENTER" prefWidth="685.0" />
+                     </content>
+                  </ScrollPane>
+               </content>
+            </Tab>
+         </tabs>
+      </JFXTabPane>
+   </center>
+   <bottom>
+      <HBox fx:id="buttonsPanel_HBox" alignment="CENTER" prefHeight="49.0" prefWidth="700.0" spacing="100.0" style="-fx-background-color: #FFFFFF;" BorderPane.alignment="CENTER">
+         <children>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
+               <children>
+                  <JFXButton alignment="CENTER" buttonType="RAISED" onAction="#addNewRowClicked" ripplerFill="#ffff8d" style="-fx-background-color: #00BCD4; -fx-background-radius: 10;" text="Agregar Fila">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton alignment="CENTER" buttonType="RAISED" layoutX="10.0" layoutY="10.0" onAction="#addNewString" ripplerFill="#ffff8d" style="-fx-background-color: #00BCD4; -fx-background-radius: 10;" text="Cadena">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </JFXButton>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
+               <children>
+                  <JFXButton alignment="CENTER" buttonType="RAISED" onAction="#cleanFieldsClicked" ripplerFill="#ffff8d" style="-fx-background-color: #00BCD4; -fx-background-radius: 10;" text="Limpiar">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton alignment="CENTER" buttonType="RAISED" onAction="#runCYKClicked" ripplerFill="#ffff8d" style="-fx-background-color: #00BCD4; -fx-background-radius: 10;" text="Ejecutar CYK">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </JFXButton>
+               </children>
+            </HBox>
+         </children>
+      </HBox>
+   </bottom>
+</BorderPane>
