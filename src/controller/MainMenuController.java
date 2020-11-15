@@ -3,6 +3,7 @@ package controller;
 import com.jfoenix.controls.JFXTabPane;
 import com.jfoenix.controls.JFXTextField;
 
+import customException.GrammarNotFoundException;
 import customException.TextStringNotEnteredException;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
@@ -95,8 +96,8 @@ public class MainMenuController {
     @FXML
     void runCYKClicked() {
     	try {
+    		checkGrammar();
     		checkTextString();
-    		
     		
         	CYKPanel_VBox.getChildren().clear();
         	
@@ -111,8 +112,10 @@ public class MainMenuController {
         	CYK_Tab.setDisable(false);
             tabPane.getSelectionModel().select(CYK_Tab);
             
-    	}catch (TextStringNotEnteredException e) {
-			e.message();
+    	}catch (TextStringNotEnteredException textString) {
+    		textString.message();
+		}catch (GrammarNotFoundException grammar) {
+			grammar.message();
 		}
     	
     }
@@ -241,7 +244,19 @@ public class MainMenuController {
     	}
     }
     
-    private void checkGrammar() {
+    private void checkGrammar() throws GrammarNotFoundException{
     	
+    	for (int i = 0; i < GrammarPanel_VBox.getChildren().size(); i++) {
+    		System.out.println("i= " + i);
+    		
+			HBox hBox = (HBox) GrammarPanel_VBox.getChildren().get(i);
+			
+			JFXTextField textField1 = (JFXTextField) hBox.getChildren().get(0);
+			JFXTextField textField2 = (JFXTextField) hBox.getChildren().get(2);
+			
+			if(textField1.getText().equals("") || textField2.getText().equals("")) {
+				throw new GrammarNotFoundException();
+			}
+		}
     }
 }
