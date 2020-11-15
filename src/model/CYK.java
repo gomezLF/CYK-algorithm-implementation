@@ -7,18 +7,33 @@ import java.util.List;
 
 
 public class CYK {
-
+	/**
+	 * Represent all variables with contains the GIC
+	 */
 	ArrayList<String> variables;
+	/**
+	 * Matrix initial with productions
+	 */
 	String[][] mainMatrix;
+	/**
+	 * Matrix final
+	 */
 	String[][] matrixResult;
 	
+	/**
+	 * Map with values of the matrix inital
+	 */
 	HashMap<String,List<String>> map;
 	
 	public CYK() {
 		
 	}
 	
-	
+	/**
+	 * CYK class constructor
+	 * @param matrix Initial matrix containing the productions
+	 * @param stringSize String size to later create the dimensions of the result matrix
+	 */
 	public CYK(String[][] matrix,int stringSize) {	
 		mainMatrix = matrix;
 		matrixResult = new String[stringSize][stringSize];
@@ -27,6 +42,7 @@ public class CYK {
 	}
 	
 	/**
+	 * Pre:The initial matrix with the productions has been passed to the constructor of this class
 	 * This method allows pass elements from matrix to hashmap
 	 */
 	public void addValueToMap() {
@@ -45,8 +61,12 @@ public class CYK {
 			}
 			addValueToMapAux(variableProductora,producciones);
 		}		
-	}
-	
+	}	
+	/**
+	 * This method helps the add value to map method to add values ​​to the hasmap 
+	 * @param variableProductora It is the producing variable of production
+	 * @param producciones they are the productions of the producing variable
+	 */
 	public void addValueToMapAux(String variableProductora, List<String> producciones) {
 		 map.put(variableProductora, producciones);
 	}
@@ -71,11 +91,19 @@ public class CYK {
 				}
 				//Values to generate
 				matrixResult[i-1][j-1] = whoGenerate(nTuplas);
+				
+				
+				
+				
 			}
 		}
 		
 	}
 	
+	/**
+	 * The method allows to verify if a string is contained in one in the last position of the result matrix
+	 * @return returns true if it contains the string and not otherwise
+	 */
 	public boolean containsString() {
 		String[] checkValueInitial = matrixResult[0][matrixResult[0].length-1].split(",");
 		boolean found = false;
@@ -116,8 +144,8 @@ public class CYK {
 	
 
 	/**
-	 * Check who generate a string
-	 * @param nTuplas
+	 * What variable generates a string
+	 * @param nTuplas 
 	 * @return
 	 */
 	public String whoGenerate(List<String> nTuplas) {
@@ -147,10 +175,10 @@ public class CYK {
 	}
 	
 	/**
-	 * 
-	 * @param partitions1
-	 * @param partitions2
-	 * @return
+	 * Allows realizing the Cartesian product between two partitions
+	 * @param partitions1 - Arrys to String
+	 * @param partitions2 - Arrys to String
+	 * @return result to cartesian product between partitions1 and partitions2
 	 */
 	public String[] cartesianProduct(String[] partitions1, String[] partitions2) {
 		

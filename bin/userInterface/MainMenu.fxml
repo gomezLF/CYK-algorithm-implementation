@@ -43,6 +43,9 @@
                                  <padding>
                                     <Insets top="5.0" />
                                  </padding>
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
                               </VBox>
                            </children>
                            <padding>
@@ -57,7 +60,10 @@
                <content>
                   <ScrollPane prefHeight="200.0" prefWidth="200.0">
                      <content>
-                        <VBox fx:id="CYKPanel_VBox" alignment="CENTER" prefWidth="685.0" />
+                        <VBox fx:id="CYKPanel_VBox" alignment="CENTER" prefWidth="685.0" spacing="10.0">
+                           <padding>
+                              <Insets top="20.0" />
+                           </padding></VBox>
                      </content>
                   </ScrollPane>
                </content>

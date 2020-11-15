@@ -127,7 +127,7 @@ public class MainMenuController {
             
             generateColumns();
             printMatrix();
-            chowMessage();
+            showMessage();
             
         	CYK_Tab.setDisable(false);
             tabPane.getSelectionModel().select(CYK_Tab);
@@ -282,22 +282,25 @@ public class MainMenuController {
      * Method that is responsible for creating and displaying on the screen, the message confirming whether or not the string 
      * was produced by the grammar.
      */
-    private void chowMessage() {
+    private void showMessage() {
     	
     	JFXTextField textField = new JFXTextField();
     	CYKPanel_VBox.getChildren().add(textField);
     	
     	textField.setAlignment(Pos.CENTER);
     	textField.setEditable(false);
-    	textField.setPrefSize(400d, 30d);
-    	textField.setBackground(new Background(new BackgroundFill(Color.valueOf("#c6f6f5"), CornerRadii.EMPTY, Insets.EMPTY)));
-    	textField.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
+    	textField.setPrefSize(100d, 30d);
     	
+    	textField.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
+    	textField.setPadding(new Insets(10, 0, 0, 0));
     	
     	if(this.CYK.containsString()) {
     		textField.setText("La cadena ingresada es generada por la GIC");
+    		textField.setBackground(new Background(new BackgroundFill(Color.valueOf("#c6f6f5"), CornerRadii.EMPTY, Insets.EMPTY)));
+    		
     	}else {
     		textField.setText("La cadena ingresada no es generada por la GIC");
+    		textField.setBackground(new Background(new BackgroundFill(Color.valueOf("#FF5555"), CornerRadii.EMPTY, Insets.EMPTY)));
     	}
     }
     
