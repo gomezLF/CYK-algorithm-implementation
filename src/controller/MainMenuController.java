@@ -247,7 +247,6 @@ public class MainMenuController {
     private void checkGrammar() throws GrammarNotFoundException{
     	
     	for (int i = 0; i < GrammarPanel_VBox.getChildren().size(); i++) {
-    		System.out.println("i= " + i);
     		
 			HBox hBox = (HBox) GrammarPanel_VBox.getChildren().get(i);
 			

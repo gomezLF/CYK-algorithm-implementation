@@ -7,7 +7,7 @@ public class GrammarNotFoundException extends Exception{
 	
 	
 	public GrammarNotFoundException() {
-        super("Para ejecutar el algoritmo CYK, debe ingresar una GIC en FNC");
+        super("Para ejecutar el algoritmo CYK, debe ingresar una GIC en FNC y no dejar campos sin llenar");
     }
 
     public void message(){
