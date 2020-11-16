@@ -9,6 +9,7 @@ import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.input.KeyCode;
@@ -125,9 +126,8 @@ public class MainMenuController {
             this.CYK.addTofirstColumn(textString_TxtField.getText());
             this.CYK.calculateCYK(textString_TxtField.getText());
             
-            generateColumns();
-            printMatrix();
             showMessage();
+            generateMatrix();
             
         	CYK_Tab.setDisable(false);
             tabPane.getSelectionModel().select(CYK_Tab);
@@ -216,7 +216,7 @@ public class MainMenuController {
     /**
      * Method that is responsible for displaying the final table resulting from executing the CYK algorithm.
      */
-    private void printMatrix() {
+    private void printMatrix(VBox vBox) {
     	GridPane gridPane = new GridPane();
     	String[][] matrixResult = this.CYK.getMatrixResult();
     	
@@ -248,23 +248,26 @@ public class MainMenuController {
 				gridPane.add(label2, (j+1), (i+1));
 			}
 		}
-    	CYKPanel_VBox.getChildren().add(gridPane);
+    	vBox.getChildren().add(gridPane);
+    	this.CYKPanel_VBox.getChildren().add(vBox);
     }
     
     
     /**
      * Method that is responsible for creating the J indices in the table resulting from executing the CYK algorithm.
      */
-    private void generateColumns() {
-    	HBox box = new HBox();
-    	box.setSpacing(3d);
-    	box.setAlignment(Pos.CENTER);
-    	CYKPanel_VBox.getChildren().add(box);
+    private void generateMatrix() {
+    	HBox hBox = new HBox();
+    	VBox vBox = new VBox();
+    	
+    	hBox.setSpacing(3d);
+    	hBox.setAlignment(Pos.CENTER);
+    	vBox.getChildren().add(hBox);
     	
     	Label label = new Label();
     	label.setPrefHeight(30);
 		label.setPrefWidth(40);
-		box.getChildren().add(label);
+		hBox.getChildren().add(label);
     	
     	for (int i = 0; i < textString_TxtField.getText().length(); i++) {
     		Label label2 = new Label();
@@ -273,8 +276,9 @@ public class MainMenuController {
     		label2.setPrefWidth(40);
 			
     		label2.setText("j= " + (i+1));
-			box.getChildren().add(label2);
+			hBox.getChildren().add(label2);
 		}
+    	printMatrix(vBox);
     }
     
     
@@ -289,10 +293,10 @@ public class MainMenuController {
     	
     	textField.setAlignment(Pos.CENTER);
     	textField.setEditable(false);
-    	textField.setPrefSize(100d, 30d);
+    	textField.setPrefSize(698, 30d);
     	
     	textField.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
-    	textField.setPadding(new Insets(10, 0, 0, 0));
+    	textField.setFont(Font.font("System", FontWeight.BOLD, 14));
     	
     	if(this.CYK.containsString()) {
     		textField.setText("La cadena ingresada es generada por la GIC");
